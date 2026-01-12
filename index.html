@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OJT Portfolio - TAVAS</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        nav {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        nav .logo {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav ul li a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+
+        nav ul li a:hover,
+        nav ul li a.active {
+            color: #667eea;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 60px 40px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .profile-image-container {
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .profile-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid #667eea;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            margin: 0 auto;
+            display: block;
+        }
+
+        .profile-placeholder {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            font-size: 4em;
+            color: white;
+            border: 5px solid #667eea;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .upload-btn {
+            position: absolute;
+            bottom: 10px;
+            right: 50%;
+            transform: translateX(50%);
+            background: #667eea;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: background 0.3s;
+        }
+
+        .upload-btn:hover {
+            background: #764ba2;
+        }
+
+        .upload-btn input {
+            display: none;
+        }
+
+        header h1 {
+            font-size: 3em;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.3em;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .contact-info a {
+            color: #667eea;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 1.1em;
+        }
+
+        .contact-info a:hover {
+            color: #764ba2;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            margin-bottom: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .section h2 {
+            color: #667eea;
+            font-size: 2.5em;
+            margin-bottom: 25px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .skill-category {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 25px;
+            border-radius: 10px;
+            color: white;
+            transition: transform 0.3s;
+        }
+
+        .skill-category:hover {
+            transform: translateY(-5px);
+        }
+
+        .skill-category h3 {
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+
+        .skill-category ul {
+            list-style: none;
+        }
+
+        .skill-category li {
+            padding: 8px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .skill-category li:before {
+            content: "▹";
+            position: absolute;
+            left: 0;
+            font-size: 1.2em;
+        }
+
+
+        .project-image-container {
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .project-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .project-placeholder {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, #e0e7ff 0%, #ddd6fe 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #667eea;
+            font-size: 3em;
+            border: 2px dashed #667eea;
+        }
+
+        .project-upload-btn {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: background 0.3s;
+            margin-top: 10px;
+        }
+
+        .project-upload-btn:hover {
+            background: #764ba2;
+        }
+
+        .project-upload-btn input {
+            display: none;
+        }
+
+        .project-item .tech-stack {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .tech-tag {
+            background: #667eea;
+            color: white;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 0.9em;
+        }
+
+        .certifications {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .cert-item {
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+            padding: 30px;
+            border-radius: 10px;
+            color: white;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .cert-item:hover {
+            transform: scale(1.05);
+        }
+
+        .cert-item h3 {
+            font-size: 1.3em;
+            margin-bottom: 10px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            transition: background 0.3s, transform 0.3s;
+            margin-top: 20px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #333;
+            transition: 0.3s;
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: rgba(255, 255, 255, 0.98);
+                padding: 20px;
+                box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            }
+
+            nav ul.show {
+                display: flex;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            header h1 {
+                font-size: 2em;
+            }
+
+            .section {
+                padding: 20px;
+            }
+
+            .contact-info {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .profile-image, .profile-placeholder {
+                width: 150px;
+                height: 150px;
+            }
+            .logo {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .nav-avatar {
+                width: 36px;
+                height: 36px;
+                border-radius: 50%;
+                object-fit: cover;
+                border: 2px solid #667eea;
+            }
+
+
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <div class="logo">
+                <img id="navAvatar" class="nav-avatar" style="display:none;">
+                <span>TAVAS, DEAN ANDREI R.</span>
+            </div>
+
+            <div class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul id="navMenu">
+                <li><a onclick="showPage('home')" class="active">Home</a></li>
+                <li><a onclick="showPage('about')">About</a></li>
+                <li><a onclick="showPage('skills')">Skills</a></li>
+                <li><a onclick="showPage('projects')">Projects</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- HOME PAGE -->
+        <div id="home" class="page active">
+            <header>
+                <div class="profile-image-container">
+                    <div id="profileImageDisplay" class="profile-placeholder">👤</div>
+                    <label class="upload-btn">
+                        📷 Upload Photo
+                        <input type="file" id="profileImageInput" accept="image/*" onchange="loadProfileImage(event)">
+                    </label>
+                </div>
+                <h1>DEAN ANDREI ROBERTS TAVAS</h1>
+                <p>BS IN INFORMATION TECHNOLOGY MAJORING IN WEB AND MOBILE APPLICATIONS DEVELOPMENT (WMAD)</p>
+                <div class="contact-info">
+                    <a href="mailto:deantavas02@gmail.com">📧 deantavas02@gmail.com</a>
+                    <a href="tel:+639629722987">📱 +63 (9629722987)</a>
+                    <a href="https://www.linkedin.com/in/dean-andrei-tavas-0b9a2b370" target="_blank">💼 LinkedIn</a>
+                    <a href="https://github.com/DreiTzy22" target="_blank">💻 GitHub</a>
+                </div>
+                <a href="#" onclick="showPage('about')" class="btn">Learn More About Me</a>
+            </header>
+
+            <div class="section">
+                <h2>Welcome to My Portfolio</h2>
+                <p style="font-size: 1.1em; line-height: 1.8;">
+                    I am a passionate BSIT – Web and Mobile Application Development undergraduate with academic knowledge and hands-on experience in web and mobile development. This portfolio highlights my skills and projects, demonstrating my ability to deliver robust solutions, generate innovative ideas, and contribute to creating a better technological future.
+                </p>
+            </div>
+        </div>
+
+        <!-- ABOUT PAGE -->
+        <div id="about" class="page">
+            <div class="section">
+                <h2>About Me</h2>
+                <p style="font-size: 1.1em; margin-bottom: 20px;">
+                   I am a 21-year-old Information Technology undergraduate majoring in Web and Mobile Application Development. Throughout my academic journey, I have gained a solid foundation in programming, system analysis, and application design, which has equipped me with the skills necessary to create innovative and efficient digital solutions. My coursework and hands-on projects have allowed me to apply theoretical concepts to real-world scenarios, preparing me for challenges in the field of technology.
+                </p>
+                <p style="font-size: 1.1em; margin-bottom: 20px;">
+                   I enjoy transforming ideas into practical and user-friendly applications that solve real problems. I am constantly exploring new technologies, frameworks, and tools to enhance my skillset and stay up-to-date with industry trends. This passion for learning motivates me to experiment with creative solutions and continuously improve the quality and functionality of my projects.
+                </p>
+                <p style="font-size: 1.1em;">
+                    With a strong sense of curiosity, determination, and adaptability, I am eager to contribute to real-world projects and collaborate effectively with teams. I value personal and professional growth equally, striving to develop not only my technical expertise but also my communication, teamwork, and problem-solving abilities. I am confident that these qualities will allow me to make meaningful contributions to any organization while advancing my career in web and mobile application development.
+            </div>
+
+            <div class="section">
+                <h2>Education</h2>
+                <div class="experience-item">
+                    <h3>ISABELA STATE UNIVERSITY (ECHAGUE CAMPUS)</h3>
+                    <div class="role">Bachelor of Science in Information Technology majoring in Web and Mobile Applications Development</div>
+                    <div class="duration">2022 - Present (4th Year Student)</div>
+                </div>
+                <div class="experience-item">
+                    <h3>OUR LADY OF THE PILLAR COLLEGE - CAUAYAN (OLPCC)</h3>
+                    <div class="role">Senior Highschool - Science, Technology, Engeeniring, and Mathematics Strand (STEM)</div>
+                    <div class="duration">2020 - 2022</div>
+                </div>
+                    <div class="experience-item">
+                    <h3>OUR LADY OF THE PILLAR COLLEGE - CAUAYAN (OLPCC)</h3>
+                    <div class="role">Elementary - Highschool</div>
+                    <div class="duration">2009 - 2020</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Certifications</h2>
+                <div class="certifications">
+                    <div class="cert-item">
+                        <h3>Mechatronics and Robotics Society of the Philippines (MRSP): Social Robotics </h3>
+                        <p>(Virtual / Online)</p>
+                        <p>March 2023</p>
+                    </div>
+                    <div class="cert-item">
+                        <h3>Mechatronics and Robotics Society of the Philippines (MRSP): Industrial Revolution </h3>
+                        <p>(Virtual / Online)</p>
+                        <p> April 2023 </p>
+                    </div>
+                    <div class="cert-item">
+                        <h3>NEXUS Skill UP! Training on Hydrological Modeling for Flood Prediction and Reservoir Operations </h3>
+                        <p>(Virtual / Online)</p>
+                        <p>July 2025</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SKILLS PAGE -->
+        <div id="skills" class="page">
+            <div class="section">
+    <h2>Technical and Soft Skills</h2>
+    <div class="skills-grid">
+        <!-- Existing Technical Skills -->
+        <div class="skill-category">
+            <h3>Operating Systems</h3>
+            <ul>
+                <li>Windows 10/11</li>
+                <li>Linux (Ubuntu, Kali-Linux)</li>
+                <li>MacOS</li>
+                <li>Virtualization (VMware, VirtualBox)</li>
+            </ul>
+        </div>
+        <div class="skill-category">
+            <h3>Programming Languages</h3>
+            <ul>
+                <li>PHP</li>
+                <li>JavaScript</li>
+                <li>C++</li>
+                <li>C#</li>
+                <li>Dart</li>
+                <li>GDScript</li>
+            </ul>
+        </div>
+        <div class="skill-category">
+            <h3>Frameworks/Libraries and Technologies</h3>
+            <ul>
+                <li>HTML</li>
+                <li>CSS</li>
+                <li>Bootstrap</li>
+                <li>Laravel</li>
+                <li>Vue.Js</li>
+                <li>Tailwind CSS</li>
+                <li>Ionic</li>
+                <li>Flutter</li>
+            </ul>
+        </div>
+        <div class="skill-category">
+            <h3>Databases</h3>
+            <ul>
+                <li>MySQL</li>
+                <li>MariaDB</li>
+            </ul>
+        </div>
+        <div class="skill-category">
+            <h3>Tools & Platforms</h3>
+            <ul>
+                <li>Git</li>
+                <li>GitHub</li>
+                <li>Visual Studio Code (VS Code)</li>
+                <li>Android Studio</li>
+                <li>XAMPP</li>
+                <li>Postman</li>
+            </ul>
+        </div>
+        <!-- Soft Skills -->
+        <div class="skill-category">
+            <h3>Soft Skills</h3>
+            <ul>
+                <li>Problem Solving</li>
+                <li>Teamwork & Collaboration</li>
+                <li>Adaptability</li>
+                <li>Time Management</li>
+                <li>Effective Communication</li>
+                <li>Critical Thinking</li>
+                <li>Creativity & Innovation</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+        </div>
+
+        <!-- PROJECTS PAGE -->
+<div id="projects" class="page">
+    <div class="section">
+            <h2>Capstone Project</h2>
+        <div class="project-item">
+            <h3><a href="https://isu-docuflow.online">DOCU-FLOW: A Faculty Extension Document Management System for the Isabela State University Echague-Main Campus</a></h3>
+            <h5>Role: Project Leader/Lead Programmer/Backend Developer<h5></h5>
+            <div class="project-image-container" id="projectContainer3">
+                <div id="projectImage3" class="project-grid"></div>
+                <label class="project-upload-btn">
+                    📷 Add Project Image
+                    <input type="file" accept="image/*" multiple onchange="loadProjectImages(event, 'projectImage3', 'projectContainer3')">
+                </label>
+            </div>
+            <h4>A system dedicated for the Campus Extension and Training Services (CETS) of the Isabela State University Echague Campus.</h4>
+            <h5>FUNCTIONALITIES:</h5>
+                <li>6 User Sides (Faculty, College Coordinator, College Dean, CETS Staff, Head/Campus Director of CETS, Panel/Evaluators)</li>
+                <li>Management of Extension Related Documents</li>
+                <li>Real-time Tracking of Submissions and In-System Notifications</li>
+                <li>Email Verification for User-Accounts</li>
+                <li>Consolidation of Submitted Reports and Proposals</li>
+                <li>Generation of Reports and Designation Certificates</li>
+            </ul>
+            <div class="tech-stack">
+                <span class="tech-tag">Vue.Js</span>
+                <span class="tech-tag">Laravel</span>
+                <span class="tech-tag">MySQL</span>
+                <span class="tech-tag">MariaDB</span>
+                <span class="tech-tag">Hostinger</span>
+            </div>
+        </div>
+        
+    </div>
+    <div class="section">
+        <div class="project-item">
+        <h2>Academic Projects</h2>
+
+        <div class="project-item">
+            <h3>Diagnosease: A Diagnostic Laboratory Patient Information Management System</h3>
+            <h5>Role: Project Leader/Lead Programmer</h5>
+            <div class="project-image-container" id="projectContainer1">
+                <div id="projectImage1" class="project-grid"></div>
+                <label class="project-upload-btn">
+                    📷 Add Project Image
+                    <input type="file" accept="image/*" multiple onchange="loadProjectImages(event, 'projectImage1', 'projectContainer1')">
+                </label>
+            </div>
+            <h4>A diagnostic Laboratory Patient Information Management System designed to enhance the efficiency and effectiveness of patient record handling.</h4>
+            <ul>
+                <li>efficiency and effectiveness of patient record handling</li>
+            </ul>
+            <div class="tech-stack">
+                <span class="tech-tag">HTML</span>
+                <span class="tech-tag">JAVASCRIPT</span>
+                <span class="tech-tag">CSS</span>
+                <span class="tech-tag">PHP</span>
+            </div>
+        </div>
+        </div>
+        
+    </div>
+     <div class="section">
+        <div class="project-item">
+            <h3>AgroExports: Crop Export Management System</h3>
+            <h5>Role: Project Leader/Lead Programmer</h5>
+            
+            <div class="project-image-container" id="projectContainer2">
+                <div id="projectImage2" class="project-grid"></div>
+                <label class="project-upload-btn">
+                    📷 Add Project Image
+                    <input type="file" accept="image/*" multiple onchange="loadProjectImages(event, 'projectImage2', 'projectContainer2')">
+                </label>
+            </div>
+            <h4>A system that manages Crop Export and distribution with analytics</h4>
+                <li>Management of Crop Exports and Tracking</li>
+            </ul>
+            <div class="tech-stack">
+                <span class="tech-tag">Vue.Js</span>
+                <span class="tech-tag">Laravel</span>
+                <span class="tech-tag">MySQL</span>
+                <span class="tech-tag">MariaDB</span>
+            </div>
+        </div>
+        
+    </div>
+    <div class="section">
+        <div class="project-item">
+            <h3>Bank Account Management System</h3>
+            <h5>Role: Project Leader/Lead Programmer</h5>
+            
+            <div class="project-image-container" id="projectContainer4">
+                <div id="projectImage4" class="project-grid"></div>
+                <label class="project-upload-btn">
+                    📷 Add Project Image
+                    <input type="file" accept="image/*" multiple onchange="loadProjectImages(event, 'projectImage4', 'projectContainer4')">
+                </label>
+            </div>
+            <h4>A system that will manage bank account information and their total balances.</h4>
+                <li>Basic Create, Read, Update, Delete(CRUD) Application for Bank Accounts</li>
+            </ul>
+            <div class="tech-stack">
+                <span class="tech-tag">C++</span>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<script>
+function showPage(pageId) {
+    const pages = document.querySelectorAll('.page');
+    pages.forEach(page => page.classList.remove('active'));
+    document.getElementById(pageId).classList.add('active');
+
+    const navLinks = document.querySelectorAll('nav ul li a');
+    navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('onclick').includes(pageId)) link.classList.add('active');
+    });
+
+    const navMenu = document.getElementById('navMenu');
+    if (navMenu.classList.contains('show')) navMenu.classList.remove('show');
+}
+
+function toggleMenu() {
+    document.getElementById('navMenu').classList.toggle('show');
+}
+
+// Profile Image
+function loadProfileImage(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function() {
+        const imageData = reader.result;
+        localStorage.setItem('profileImage', imageData);
+        displayProfileImage(imageData);
+    };
+    reader.readAsDataURL(file);
+}
+
+function displayProfileImage(imageData) {
+    const output = document.getElementById('profileImageDisplay');
+    output.innerHTML = `<img src="${imageData}" alt="Profile Image" class="profile-image">`;
+
+    const uploadBtn = output.nextElementSibling;
+    if (uploadBtn && uploadBtn.classList.contains('upload-btn')) {
+        uploadBtn.style.display = 'none';
+    }
+}
+
+// Projects: Load multiple images with delete option (hidden until hover)
+function loadProjectImages(event, elementId, containerId) {
+    const files = Array.from(event.target.files);
+    if (!files.length) return;
+
+    const container = document.getElementById(containerId);
+    const output = document.getElementById(elementId);
+
+    files.forEach((file, index) => {
+        const reader = new FileReader();
+        reader.onload = function() {
+            const imageData = reader.result;
+
+            const storageKey = elementId + '_' + Date.now() + '_' + index;
+            localStorage.setItem(storageKey, imageData);
+
+            const imgWrapper = document.createElement('div');
+            imgWrapper.style.position = 'relative';
+            imgWrapper.style.display = 'inline-block';
+            imgWrapper.style.marginBottom = '10px';
+            imgWrapper.style.marginRight = '10px';
+
+            const img = document.createElement('img');
+            img.src = imageData;
+            img.alt = `Project Image`;
+            img.classList.add('project-image');
+            img.style.width = '500px';
+            img.style.height = '250px';
+            img.style.objectFit = 'cover';
+            imgWrapper.appendChild(img);
+
+            const delBtn = document.createElement('button');
+            delBtn.innerHTML = '❌';
+            delBtn.style.position = 'absolute';
+            delBtn.style.top = '5px';
+            delBtn.style.right = '5px';
+            delBtn.style.background = 'rgba(255,0,0,0.7)';
+            delBtn.style.border = 'none';
+            delBtn.style.color = 'white';
+            delBtn.style.borderRadius = '50%';
+            delBtn.style.width = '25px';
+            delBtn.style.height = '25px';
+            delBtn.style.cursor = 'pointer';
+            delBtn.style.opacity = '0';
+            delBtn.style.transition = 'opacity 0.2s';
+
+            delBtn.onclick = function() {
+                localStorage.removeItem(storageKey);
+                output.removeChild(imgWrapper);
+                if (output.children.length === 0) {
+                    const uploadBtn = container.querySelector('.project-upload-btn');
+                    if (uploadBtn) uploadBtn.style.display = 'inline-block';
+                }
+            };
+
+            imgWrapper.appendChild(delBtn);
+            imgWrapper.onmouseenter = () => delBtn.style.opacity = '1';
+            imgWrapper.onmouseleave = () => delBtn.style.opacity = '0';
+
+            output.appendChild(imgWrapper);
+        };
+        reader.readAsDataURL(file);
+    });
+
+    const uploadBtn = container.querySelector('.project-upload-btn');
+    if (uploadBtn) uploadBtn.style.display = 'none';
+}
+
+// Load project images on page load
+window.addEventListener('DOMContentLoaded', () => {
+    const savedProfile = localStorage.getItem('profileImage');
+    if (savedProfile) displayProfileImage(savedProfile);
+
+    for (let i = 1; i <= 4; i++) {
+        const container = document.getElementById('projectContainer' + i);
+        const output = document.getElementById('projectImage' + i);
+
+        Object.keys(localStorage).forEach(key => {
+            if (key.startsWith('projectImage' + i + '_')) {
+                const imageData = localStorage.getItem(key);
+
+                const imgWrapper = document.createElement('div');
+                imgWrapper.style.position = 'relative';
+                imgWrapper.style.display = 'inline-block';
+                imgWrapper.style.marginBottom = '10px';
+                imgWrapper.style.marginRight = '10px';
+
+                const img = document.createElement('img');
+                img.src = imageData;
+                img.alt = `Project Image`;
+                img.classList.add('project-image');
+                img.style.width = '500px';
+                img.style.height = '250px';
+                img.style.objectFit = 'cover';
+                imgWrapper.appendChild(img);
+
+                const delBtn = document.createElement('button');
+                delBtn.innerHTML = '❌';
+                delBtn.style.position = 'absolute';
+                delBtn.style.top = '5px';
+                delBtn.style.right = '5px';
+                delBtn.style.background = 'rgba(255,0,0,0.7)';
+                delBtn.style.border = 'none';
+                delBtn.style.color = 'white';
+                delBtn.style.borderRadius = '50%';
+                delBtn.style.width = '25px';
+                delBtn.style.height = '25px';
+                delBtn.style.cursor = 'pointer';
+                delBtn.style.opacity = '0';
+                delBtn.style.transition = 'opacity 0.2s';
+
+                delBtn.onclick = function() {
+                    localStorage.removeItem(key);
+                    output.removeChild(imgWrapper);
+                    if (output.children.length === 0) {
+                        const uploadBtn = container.querySelector('.project-upload-btn');
+                        if (uploadBtn) uploadBtn.style.display = 'inline-block';
+                    }
+                };
+
+                imgWrapper.appendChild(delBtn);
+                imgWrapper.onmouseenter = () => delBtn.style.opacity = '1';
+                imgWrapper.onmouseleave = () => delBtn.style.opacity = '0';
+
+                output.appendChild(imgWrapper);
+            }
+        });
+
+        if (output.children.length > 0) {
+            const uploadBtn = container.querySelector('.project-upload-btn');
+            if (uploadBtn) uploadBtn.style.display = 'none';
+        }
+    }
+});
+</script>
+
+</body>
+</html>
