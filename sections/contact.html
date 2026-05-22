@@ -1,0 +1,66 @@
+<div class="section-card">
+    <h2>Get In Touch</h2>
+    <div class="contact-grid">
+        <div class="contact-info-panel">
+            <div class="contact-info-card">
+                <div class="contact-icon-wrapper">
+                    <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                </div>
+                <div class="contact-detail">
+                    <h4>Email</h4>
+                    <a href="mailto:deantavas02@gmail.com">deantavas02@gmail.com</a>
+                </div>
+            </div>
+
+            <div class="contact-info-card">
+                <div class="contact-icon-wrapper">
+                    <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                </div>
+                <div class="contact-detail">
+                    <h4>Mobile</h4>
+                    <a href="tel:+639629722987">+63 9629722987</a>
+                </div>
+            </div>
+
+            <div class="contact-info-card">
+                <div class="contact-icon-wrapper">
+                    <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                </div>
+                <div class="contact-detail">
+                    <h4>Location</h4>
+                    <p>Cauayan City, Isabela, Philippines</p>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <form class="contact-form" id="contactForm" onsubmit="submitContactForm(event)">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="form-name">Name</label>
+                        <input type="text" id="form-name" placeholder="John Doe" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="form-email">Email Address</label>
+                        <input type="email" id="form-email" placeholder="john@example.com" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="form-subject">Subject</label>
+                    <input type="text" id="form-subject" placeholder="Project Inquiry" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="form-message">Message</label>
+                    <textarea id="form-message" placeholder="Describe your project, proposal, or question in detail..." required></textarea>
+                </div>
+
+                <button type="submit" class="btn" id="contactSubmitBtn">
+                    <span>Send Message</span>
+                    <svg style="width:18px; height:18px; fill:currentColor;" viewBox="0 0 20 20"><path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"/></svg>
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

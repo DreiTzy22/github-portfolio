@@ -1,0 +1,25 @@
+{
+  "name": "github-portfolio",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DreiTzy22/github-portfolio.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DreiTzy22/github-portfolio/issues"
+  },
+  "homepage": "https://github.com/DreiTzy22/github-portfolio#readme",
+  "dependencies": {
+    "express": "^4.22.2",
+    "multer": "^2.1.1"
+  }
+}
