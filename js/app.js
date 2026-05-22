@@ -1,4 +1,4 @@
-const sections = ['home', 'about', 'skills', 'projects', 'contact', 'messages'];
+const sections = ['home', 'about', 'skills', 'projects', 'contact'];
 
 // Dynamically fetch and load all sections
 async function loadSections() {
@@ -74,11 +74,6 @@ function showPage(pageId) {
     const navMenu = document.getElementById('navMenu');
     if (navMenu && navMenu.classList.contains('show')) {
         navMenu.classList.remove('show');
-    }
-
-    // Load inbox items if the user accesses the inbox page
-    if (pageId === 'messages') {
-        fetchMessages();
     }
 
     // Scroll to top on transition
@@ -284,112 +279,6 @@ function removeProjectImage(id, index) {
     showToast('Project image removed.', 'success');
 }
 
-// Form Submit
-function submitContactForm(event) {
-    event.preventDefault();
-    const submitBtn = document.getElementById('contactSubmitBtn');
-    const oldText = submitBtn.innerHTML;
-    
-    const name = document.getElementById('form-name').value;
-    const email = document.getElementById('form-email').value;
-    const subject = document.getElementById('form-subject').value;
-    const message = document.getElementById('form-message').value;
-
-    if (!isLocal) {
-        // Fallback to mailto links on static hosts
-        showToast('Static host detected. Opening mail client...', 'success');
-        setTimeout(() => {
-            window.location.href = `mailto:deantavas02@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent("Name: " + name + "\nEmail: " + email + "\n\n" + message)}`;
-            document.getElementById('contactForm').reset();
-        }, 800);
-        return;
-    }
-    
-    submitBtn.disabled = true;
-    submitBtn.innerHTML = 'Sending...';
-
-    fetch('/api/contact', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ name, email, subject, message })
-    })
-    .then(res => {
-        if (!res.ok) throw new Error('Submission failed');
-        return res.json();
-    })
-    .then(data => {
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = oldText;
-        
-        document.getElementById('contactForm').reset();
-        showToast('Message sent successfully! Thank you.', 'success');
-    })
-    .catch(err => {
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = oldText;
-        showToast('Failed to send message. Please run node server.', 'error');
-    });
-}
-
-// Fetch Messages from Server
-function fetchMessages() {
-    const container = document.getElementById('messagesListContainer');
-    if (!container) return;
-
-    if (!isLocal) {
-        container.innerHTML = `
-            <div class="no-messages">
-                <p style="margin-bottom: 8px;">Inbox is only active in a local Node.js Express environment.</p>
-                <p style="font-size: 0.85rem; color: var(--text-muted); max-width: 500px; margin: 0 auto;">
-                    To view real-time contact form submissions stored on disk, clone the repository and run <code>node server.js</code> locally.
-                </p>
-            </div>`;
-        return;
-    }
-
-    fetch('/api/messages')
-    .then(res => {
-        if (!res.ok) throw new Error('Fetch failed');
-        return res.json();
-    })
-    .then(messages => {
-        container.innerHTML = '';
-        if (messages.length === 0) {
-            container.innerHTML = '<div class="no-messages">Your inbox is empty. No messages have been submitted yet.</div>';
-            return;
-        }
-
-        // Render in reverse chronological order
-        messages.slice().reverse().forEach(msg => {
-            const date = new Date(msg.date).toLocaleString();
-            const card = document.createElement('div');
-            card.className = 'message-card';
-            card.innerHTML = `
-                <div class="message-header">
-                    <div class="message-sender">
-                        <h4>${escapeHtml(msg.name)}</h4>
-                        <p>${escapeHtml(msg.email)}</p>
-                    </div>
-                    <div class="message-date">${date}</div>
-                </div>
-                <div class="message-subject">Sub: ${escapeHtml(msg.subject)}</div>
-                <div class="message-content">${escapeHtml(msg.message)}</div>
-            `;
-            container.appendChild(card);
-        });
-    })
-    .catch(err => {
-        container.innerHTML = '<div class="no-messages" style="color:var(--accent-hover);">Could not load messages. Make sure the node backend server.js is running.</div>';
-    });
-}
-
-function escapeHtml(str) {
-    if (!str) return '';
-    return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
-}
-
 // Toast Popup Helper
 function showToast(message, type = 'success') {
     const container = document.getElementById('toastContainer');
@@ -427,8 +316,6 @@ window.toggleTheme = toggleTheme;
 window.uploadProfilePhoto = uploadProfilePhoto;
 window.uploadProjectImage = uploadProjectImage;
 window.showAvatarFallback = showAvatarFallback;
-window.submitContactForm = submitContactForm;
-window.fetchMessages = fetchMessages;
 
 // Start fetching and loading section templates on DOM load
 window.addEventListener('DOMContentLoaded', () => {

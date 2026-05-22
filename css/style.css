@@ -889,12 +889,6 @@ nav ul li a.active {
 }
 
 /* Contact Form Layout */
-.contact-grid {
-    display: grid;
-    grid-template-columns: 0.8fr 1.2fr;
-    gap: 40px;
-}
-
 .contact-info-panel {
     display: flex;
     flex-direction: column;
@@ -948,122 +942,7 @@ nav ul li a.active {
     color: var(--accent);
 }
 
-/* Form styling */
-.contact-form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-}
-
-.form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.form-group label {
-    font-size: 0.88rem;
-    font-weight: 600;
-    color: var(--text-secondary);
-}
-
-.form-group input, 
-.form-group textarea {
-    background: var(--bg-secondary);
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    padding: 14px 18px;
-    color: var(--text-primary);
-    font-family: var(--font-body);
-    font-size: 0.95rem;
-    transition: var(--transition);
-    width: 100%;
-}
-
-.form-group input:focus, 
-.form-group textarea:focus {
-    outline: none;
-    border-color: var(--accent);
-    box-shadow: 0 0 0 4px var(--accent-light);
-    background: var(--bg-primary);
-}
-
-.form-group textarea {
-    resize: vertical;
-    min-height: 160px;
-}
-
-/* Messages Board View */
-.messages-list {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-}
-
-.message-card {
-    background: var(--bg-secondary);
-    border: 1px solid var(--border-color);
-    border-radius: 16px;
-    padding: 24px;
-    transition: var(--transition);
-}
-
-.message-card:hover {
-    border-color: var(--accent);
-}
-
-.message-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 12px;
-    border-bottom: 1px solid var(--border-color);
-    padding-bottom: 12px;
-}
-
-.message-sender h4 {
-    font-family: var(--font-headings);
-    font-size: 1.1rem;
-    color: var(--text-primary);
-}
-
-.message-sender p {
-    font-size: 0.85rem;
-    color: var(--text-muted);
-}
-
-.message-date {
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
-    color: var(--text-muted);
-}
-
-.message-subject {
-    font-weight: 600;
-    color: var(--accent-hover);
-    margin-bottom: 8px;
-    font-size: 0.95rem;
-}
-
-.message-content {
-    font-size: 0.95rem;
-    color: var(--text-secondary);
-    white-space: pre-line;
-    line-height: 1.6;
-}
-
-.no-messages {
-    text-align: center;
-    padding: 48px;
-    color: var(--text-muted);
-    font-size: 1.1rem;
-}
+/* End of Contact Section */
 
 /* Toast Alert System */
 .toast-container {
